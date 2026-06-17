@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
+import { LogoMark } from "@/components/brand/LogoMark";
 
 /* ── Container ──────────────────────────────────────────────── */
 export function Container({
@@ -95,18 +96,8 @@ export function Logo({
   withWordmark?: boolean;
 }) {
   return (
-    <Link href="/" className="flex items-center gap-2" aria-label="creaConstruye">
-      <span
-        className="grid place-items-center bg-volt font-black text-on-volt"
-        style={{
-          width: size,
-          height: size,
-          borderRadius: Math.round(size * 0.22),
-          fontSize: Math.round(size * 0.5),
-        }}
-      >
-        C
-      </span>
+    <Link href="/" className="flex items-center gap-2.5" aria-label="creaConstruye">
+      <LogoMark size={size} />
       {withWordmark && (
         <span className="text-[15px] font-extrabold tracking-tight">
           <span className="font-normal text-muted">crea</span>
