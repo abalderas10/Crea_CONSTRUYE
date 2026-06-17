@@ -1,5 +1,7 @@
 // Mockup estático del dashboard para el hero. Comunica el producto de un vistazo.
 
+import { LogoMark } from "@/components/brand/LogoMark";
+
 const KPIS = [
   { label: "Precio/m²", value: "$8,420", accent: true },
   { label: "TIR anual", value: "24.5%", accent: false },
@@ -12,9 +14,7 @@ export function DashboardPreview() {
     <div className="rounded-xl border border-line bg-raised p-3 shadow-card sm:p-4">
       {/* Topbar simulada */}
       <div className="mb-3 flex items-center gap-2 border-b border-line pb-3">
-        <span className="grid h-5 w-5 place-items-center rounded-sm bg-volt text-[10px] font-black text-on-volt">
-          C
-        </span>
+        <LogoMark size={16} />
         <span className="text-[12px] font-semibold text-ink">
           Torre Naucalpan Centro
         </span>
