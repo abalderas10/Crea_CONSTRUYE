@@ -1,22 +1,15 @@
 import type { Metadata } from "next";
-import { AppShell } from "@/components/app/AppShell";
-import { getCurrentUser } from "@/lib/auth";
-import { DEMO_PROJECTS } from "@/lib/projects";
 
 export const metadata: Metadata = {
   title: "Plataforma",
 };
 
-export default async function AppLayout({
+// El shell con sidebar/switcher vive en /app/[projectId]/layout.
+// Aquí solo queda el índice de proyectos y el alta de proyecto.
+export default function AppLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getCurrentUser();
-
-  return (
-    <AppShell user={user} projects={DEMO_PROJECTS}>
-      {children}
-    </AppShell>
-  );
+  return <div className="min-h-screen bg-base">{children}</div>;
 }

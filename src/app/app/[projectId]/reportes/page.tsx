@@ -20,16 +20,11 @@ export default function ReportesPage() {
 
       <div className="mt-8 grid gap-3 sm:grid-cols-2">
         {REPORTS.map((r) => (
-          <div
-            key={r.name}
-            className="rounded-xl border border-line bg-raised p-5"
-          >
+          <div key={r.name} className="rounded-xl border border-line bg-raised p-5">
             <h3 className="font-bold text-ink">{r.name}</h3>
             <p className="mt-1 text-[13px] leading-relaxed text-muted">{r.desc}</p>
             <div className="mt-4 flex items-center justify-between">
-              <span className="text-[10px] uppercase tracking-wide text-faint">
-                {r.fmt}
-              </span>
+              <span className="text-[10px] uppercase tracking-wide text-faint">{r.fmt}</span>
               <span className="rounded-sm bg-base px-2 py-1 text-[10px] font-bold text-faint">
                 Próximamente
               </span>
