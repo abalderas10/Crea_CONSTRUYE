@@ -1,5 +1,5 @@
 import { Container, Cta, Pill } from "@/components/ui";
-import { DashboardPreview } from "./DashboardPreview";
+import { HeroLogo } from "./HeroLogo";
 
 export function Hero() {
   return (
@@ -45,7 +45,7 @@ export function Hero() {
         </div>
 
         <div className="animate-float-up [animation-delay:120ms]">
-          <DashboardPreview />
+          <HeroLogo />
         </div>
       </Container>
     </section>
