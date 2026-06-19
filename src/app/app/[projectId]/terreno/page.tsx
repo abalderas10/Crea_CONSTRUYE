@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { TOOLS } from "@/lib/tools";
 import { TerrenoIcon } from "@/components/icons/ToolIcons";
 import { TerrenoForm } from "@/components/app/TerrenoForm";
+import { TerrenoValoracion } from "@/components/app/TerrenoValoracion";
 import { TerrenoAnalysis, type Analysis } from "@/components/app/TerrenoAnalysis";
 import { getProject, getToolData } from "@/lib/data/projects";
 
@@ -59,6 +60,16 @@ export default async function TerrenoPage({
         </h2>
         <div className="mt-3 rounded-xl border border-line bg-raised p-5">
           <TerrenoForm projectId={project.id} initial={loc} />
+        </div>
+      </section>
+
+      {/* Valoración (tarjetas de cálculo transparentes) */}
+      <section className="mt-8">
+        <h2 className="text-[11px] font-bold uppercase tracking-[0.15em] text-faint">
+          Valoración del terreno
+        </h2>
+        <div className="mt-3">
+          <TerrenoValoracion loc={loc} />
         </div>
       </section>
 
