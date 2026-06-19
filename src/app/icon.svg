@@ -1,16 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <rect width="100" height="100" rx="22" fill="#0C0C0E"/>
-  <g transform="translate(22,15) scale(0.703)" fill="#F4F4F5">
-    <rect x="0.5" y="0.5" width="17" height="17" rx="3.5"/>
-    <rect x="21" y="0.5" width="17" height="17" rx="3.5"/>
-    <rect x="41.5" y="0.5" width="17" height="17" rx="3.5"/>
-    <rect x="0.5" y="21" width="17" height="17" rx="3.5"/>
-    <rect x="0.5" y="41.5" width="17" height="17" rx="3.5"/>
-    <rect x="0.5" y="62" width="17" height="17" rx="3.5"/>
-    <rect x="0.5" y="82.5" width="17" height="17" rx="3.5"/>
-    <rect x="21" y="82.5" width="17" height="17" rx="3.5"/>
-    <rect x="41.5" y="82.5" width="17" height="17" rx="3.5"/>
-    <rect x="62" y="82.5" width="17" height="17" rx="3.5"/>
-    <rect x="62" y="0.5" width="17" height="17" rx="3.5" fill="#C8FF00"/>
+  <g transform="translate(12,13) scale(0.76)">
+    <g transform="translate(4,0)">
+      <path d="M64.9 77 A33 33 0 1 1 64.9 23" fill="none" stroke="#F4F4F5" stroke-width="13" stroke-linecap="round"/>
+      <path d="M50 35 L55 45 L65 50 L55 55 L50 65 L45 55 L35 50 L45 45 Z" fill="#C8FF00"/>
+    </g>
   </g>
 </svg>
