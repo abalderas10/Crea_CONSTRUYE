@@ -66,12 +66,33 @@ export async function saveTerrenoData(
   } = await supabase.auth.getUser();
   if (!user) return { error: "Sesión expirada." };
 
-  const localizacion = {
-    direccion: String(formData.get("direccion") ?? "").trim(),
-    ciudad: String(formData.get("ciudad") ?? "").trim(),
-    superficie_m2: String(formData.get("superficie_m2") ?? "").trim(),
-    precio_solicitado: String(formData.get("precio_solicitado") ?? "").trim(),
-    tipo_desarrollo: String(formData.get("tipo_desarrollo") ?? "").trim(),
+  const s = (k: string) => String(formData.get(k) ?? "").trim();
+
+  const data = {
+    entidad: {
+      tipo: s("entidad_tipo") || "cdmx",
+      estado: s("entidad_estado") || undefined,
+      documento: s("entidad_documento") || undefined,
+    },
+    predio: {
+      territorio: s("territorio"),
+      cuenta_catastral: s("cuenta_catastral"),
+      direccion: s("direccion"),
+      colonia: s("colonia"),
+      superficie_terreno: s("superficie_terreno"),
+      superficie_construccion: s("superficie_construccion"),
+      valor_catastral: s("valor_catastral"),
+      precio_solicitado: s("precio_solicitado"),
+      tipo_desarrollo: s("tipo_desarrollo"),
+    },
+    zonificacion: {
+      zona_codigo: s("zona_codigo"),
+      uso_permitido: s("uso_permitido"),
+      cos: s("cos"),
+      cus: s("cus"),
+      niveles_max: s("niveles_max"),
+      area_libre_pct: s("area_libre_pct"),
+    },
   };
 
   const { error } = await supabase.from("project_tool_data").upsert(
@@ -79,7 +100,7 @@ export async function saveTerrenoData(
       project_id: projectId,
       tool_id: "terreno",
       status: "in_progress",
-      data: { localizacion },
+      data,
     },
     { onConflict: "project_id,tool_id" },
   );
@@ -118,10 +139,9 @@ export async function generateTerrenoAnalysis(
       .maybeSingle(),
   ]);
 
-  const loc = (tool?.data as { localizacion?: Record<string, string> } | null)
-    ?.localizacion;
-  if (!loc?.direccion) {
-    return { error: "Primero guarda los datos de localización." };
+  const data = tool?.data as import("@/lib/proforma/terreno").TerrenoData | null;
+  if (!data?.predio?.direccion) {
+    return { error: "Primero guarda los datos del terreno." };
   }
 
   const context = project
@@ -130,16 +150,7 @@ export async function generateTerrenoAnalysis(
 
   try {
     const { analyzeTerreno } = await import("@/lib/ai/terreno");
-    const analysis = await analyzeTerreno(
-      {
-        direccion: loc.direccion,
-        ciudad: loc.ciudad ?? "",
-        superficie_m2: loc.superficie_m2 ?? "",
-        precio_solicitado: loc.precio_solicitado ?? "",
-        tipo_desarrollo: loc.tipo_desarrollo ?? "",
-      },
-      context,
-    );
+    const analysis = await analyzeTerreno(data, context);
 
     const { error } = await supabase.from("project_tool_data").upsert(
       {

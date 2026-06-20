@@ -31,10 +31,7 @@ export default async function TerrenoPage({
   ]);
   if (!project) notFound();
 
-  const data = (toolData?.data ?? {}) as {
-    localizacion?: Record<string, string>;
-  };
-  const loc = data.localizacion;
+  const data = (toolData?.data ?? {}) as import("@/lib/proforma/terreno").TerrenoData;
   const analysis = (toolData?.ai_analysis as Analysis | null) ?? null;
 
   return (
@@ -59,7 +56,7 @@ export default async function TerrenoPage({
           1 · Localización
         </h2>
         <div className="mt-3 rounded-xl border border-line bg-raised p-5">
-          <TerrenoForm projectId={project.id} initial={loc} />
+          <TerrenoForm projectId={project.id} initial={data} />
         </div>
       </section>
 
@@ -69,7 +66,7 @@ export default async function TerrenoPage({
           Valoración del terreno
         </h2>
         <div className="mt-3">
-          <TerrenoValoracion loc={loc} />
+          <TerrenoValoracion data={data} />
         </div>
       </section>
 
@@ -82,7 +79,7 @@ export default async function TerrenoPage({
           <TerrenoAnalysis
             projectId={project.id}
             analysis={analysis}
-            hasInputs={!!loc?.direccion}
+            hasInputs={!!data.predio?.direccion}
           />
         </div>
       </section>
