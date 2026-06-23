@@ -27,8 +27,7 @@ export function LeadForm() {
           </h2>
           <p className="mt-3 max-w-md text-[15px] leading-relaxed text-[var(--cc-muted)]">
             Déjanos tus datos y el tipo de servicio. Te contactamos con una
-            propuesta respaldada por la proforma y el presupuesto de
-            creaConstruye.
+            propuesta respaldada por proforma y presupuesto con datos reales.
           </p>
 
           <ul className="mt-8 space-y-3">

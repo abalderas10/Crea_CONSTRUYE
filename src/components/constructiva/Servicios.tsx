@@ -13,7 +13,7 @@ export function Servicios() {
           </h2>
           <p className="mt-3 text-[15px] text-[var(--cc-muted)]">
             Desde levantar un edificio hasta automatizar tu casa. Todo con el
-            respaldo de cálculos, presupuestos y supervisión de creaConstruye.
+            respaldo de cálculos, presupuestos y supervisión con datos reales.
           </p>
         </div>
 

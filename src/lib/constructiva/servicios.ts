@@ -17,7 +17,7 @@ export const SERVICIOS: Servicio[] = [
     type: "construccion",
     name: "Obra nueva",
     description:
-      "Construcción completa de tu proyecto: casa, edificio o desarrollo, con proforma respaldada por creaConstruye.",
+      "Construcción completa de tu proyecto: casa, edificio o desarrollo, con proforma y presupuesto respaldados por datos reales.",
   },
   {
     id: "obra-por-fases",
@@ -52,7 +52,7 @@ export const SERVICIOS: Servicio[] = [
     type: "mantenimiento",
     name: "Remodelaciones",
     description:
-      "Desde un espacio hasta una remodelación completa, con levantamiento y presupuesto en creaConstruye.",
+      "Desde un espacio hasta una remodelación completa, con levantamiento y presupuesto detallado.",
   },
   {
     id: "domotica",

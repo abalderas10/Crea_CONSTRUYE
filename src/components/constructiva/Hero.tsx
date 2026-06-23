@@ -9,12 +9,12 @@ export function Hero() {
       <div className="mx-auto w-full max-w-6xl px-5 pb-16 pt-20 sm:px-8 sm:pb-24 sm:pt-28">
         <span className="inline-flex items-center gap-2 rounded-full border border-[var(--cc-line)] bg-[var(--cc-surface)] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--cc-muted)]">
           <span className="h-1.5 w-1.5 rounded-full bg-[var(--cc-lime)]" />
-          Una constructora de creaConstruye
+          Construcción &amp; mantenimiento
         </span>
 
         <h1 className="mt-6 max-w-3xl text-4xl font-extrabold leading-[1.05] tracking-tight text-[var(--cc-text)] sm:text-6xl">
-          Construimos lo que{" "}
-          <span className="text-[var(--cc-lime)]">creaConstruye</span> calcula.
+          Construimos lo que se{" "}
+          <span className="text-[var(--cc-lime)]">calcula</span>.
         </h1>
 
         <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-[var(--cc-muted)] sm:text-lg">
