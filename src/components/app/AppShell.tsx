@@ -156,6 +156,7 @@ function Sidebar({
 
         <SectionLabel>Comunidad</SectionLabel>
         <NavItem href="/app/herramientas" pathname={pathname} label="Herramientas" icon={<ToolboxIcon />} />
+        <NavItem href="/legal" pathname={pathname} label="Legal" icon={<ScaleIcon />} />
       </nav>
 
       <div className="rounded-lg border border-line bg-raised p-3">
@@ -226,6 +227,13 @@ function DocIcon() {
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V8z" />
       <path d="M14 3v5h5" />
+    </svg>
+  );
+}
+function ScaleIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3v18M6 21h12M3 7h18M7 7l-3 7h6zM17 7l-3 7h6z" />
     </svg>
   );
 }

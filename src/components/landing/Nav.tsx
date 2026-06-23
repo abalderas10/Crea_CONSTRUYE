@@ -7,6 +7,7 @@ const LINKS = [
   { href: "#herramientas", label: "Herramientas" },
   { href: "#como", label: "Cómo funciona" },
   { href: "/blog", label: "Blog" },
+  { href: "/legal", label: "Legal" },
   { href: "/constructiva", label: "Constructiva" },
   { href: "#precios", label: "Precios" },
   { href: "#faq", label: "FAQ" },
