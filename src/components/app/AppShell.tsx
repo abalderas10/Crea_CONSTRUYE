@@ -52,7 +52,7 @@ export function AppShell({
       </header>
 
       <div className="flex flex-1">
-        <Sidebar pathname={pathname} project={project} statuses={statuses} done={done} />
+        <Sidebar pathname={pathname} project={project} statuses={statuses} done={done} isAdmin={user.isAdmin} />
         <main className="flex-1 overflow-x-hidden px-6 py-8 sm:px-8">
           <div className="mx-auto max-w-5xl">{children}</div>
         </main>
@@ -118,11 +118,13 @@ function Sidebar({
   project,
   statuses,
   done,
+  isAdmin,
 }: {
   pathname: string;
   project: Project;
   statuses: ToolStatusMap;
   done: number;
+  isAdmin: boolean;
 }) {
   const base = `/app/${project.id}`;
   return (
@@ -157,6 +159,13 @@ function Sidebar({
         <SectionLabel>Comunidad</SectionLabel>
         <NavItem href="/app/herramientas" pathname={pathname} label="Herramientas" icon={<ToolboxIcon />} />
         <NavItem href="/legal" pathname={pathname} label="Legal" icon={<ScaleIcon />} />
+
+        {isAdmin && (
+          <>
+            <SectionLabel>Admin</SectionLabel>
+            <NavItem href="/app/admin" pathname={pathname} label="Panel admin" icon={<ShieldIcon />} />
+          </>
+        )}
       </nav>
 
       <div className="rounded-lg border border-line bg-raised p-3">
@@ -227,6 +236,14 @@ function DocIcon() {
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V8z" />
       <path d="M14 3v5h5" />
+    </svg>
+  );
+}
+function ShieldIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" />
+      <path d="M9 12l2 2 4-4" />
     </svg>
   );
 }

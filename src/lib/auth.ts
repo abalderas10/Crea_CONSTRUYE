@@ -6,6 +6,7 @@ export type AppUser = {
   name: string;
   initials: string;
   demo: boolean;
+  isAdmin: boolean;
 };
 
 function initialsOf(name: string): string {
@@ -29,11 +30,17 @@ export async function getCurrentUser(): Promise<AppUser> {
       const name =
         (user.user_metadata?.full_name as string | undefined) ||
         user.email!.split("@")[0];
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("is_admin")
+        .eq("id", user.id)
+        .maybeSingle();
       return {
         email: user.email!,
         name,
         initials: initialsOf(name),
         demo: false,
+        isAdmin: profile?.is_admin ?? false,
       };
     }
   }
@@ -42,5 +49,6 @@ export async function getCurrentUser(): Promise<AppUser> {
     name: "Invitado Demo",
     initials: "ID",
     demo: true,
+    isAdmin: false,
   };
 }

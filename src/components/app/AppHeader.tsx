@@ -11,6 +11,7 @@ export function AppHeader({ user }: { user: AppUser }) {
       <nav className="flex items-center gap-1">
         <NavLink href="/app">Proyectos</NavLink>
         <NavLink href="/app/herramientas">Herramientas</NavLink>
+        {user.isAdmin && <NavLink href="/app/admin">Admin</NavLink>}
       </nav>
       <div className="ml-auto">
         <UserMenu user={user} />
