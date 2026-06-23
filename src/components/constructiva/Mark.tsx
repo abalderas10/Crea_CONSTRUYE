@@ -5,10 +5,11 @@
 type Variant = "carbon" | "volt" | "mono";
 
 // Celdas encendidas de la C (col, row) en una rejilla 5×5.
+// Sin trazo medio: solo arriba, izquierda y abajo — si no, parece una E.
 const C_CELLS: [number, number][] = [
   [0, 0], [1, 0], [2, 0], [3, 0], // borde superior
   [0, 1],
-  [0, 2], [1, 2],                 // tab central
+  [0, 2],                         // costado izquierdo
   [0, 3],
   [0, 4], [1, 4], [2, 4], [3, 4], // borde inferior
 ];

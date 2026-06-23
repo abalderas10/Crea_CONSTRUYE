@@ -11,7 +11,7 @@ export function Footer() {
         </div>
 
         <p className="text-[12px] text-[var(--cc-muted)]">
-          una constructora de{" "}
+          solo{" "}
           <Link href="/" className="font-semibold text-[var(--cc-text)] hover:text-[var(--cc-lime)]">
             crea<span className="text-[var(--cc-lime)]">Construye</span>
           </Link>
