@@ -153,6 +153,9 @@ function Sidebar({
         <SectionLabel>Proyecto</SectionLabel>
         <NavItem href={`${base}/reportes`} pathname={pathname} label="Reportes" icon={<DocIcon />} />
         <NavItem href={`${base}/config`} pathname={pathname} label="Configuración" icon={<GearIcon />} />
+
+        <SectionLabel>Comunidad</SectionLabel>
+        <NavItem href="/app/herramientas" pathname={pathname} label="Herramientas" icon={<ToolboxIcon />} />
       </nav>
 
       <div className="rounded-lg border border-line bg-raised p-3">
@@ -223,6 +226,15 @@ function DocIcon() {
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V8z" />
       <path d="M14 3v5h5" />
+    </svg>
+  );
+}
+function ToolboxIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2.5 9.5A2 2 0 014.5 8h15a2 2 0 012 1.5L21 19a2 2 0 01-2 1.5H5A2 2 0 013 19z" />
+      <path d="M16 8V6a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" />
+      <path d="M2.5 13h19" />
     </svg>
   );
 }

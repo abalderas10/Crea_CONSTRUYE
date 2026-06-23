@@ -112,6 +112,66 @@ export type Database = {
         }
         Relationships: []
       }
+      tool_proposals: {
+        Row: {
+          ai_suggestion: Json | null
+          author_id: string
+          created_at: string
+          description: string
+          expert_field: string | null
+          expert_name: string | null
+          expert_validated: boolean
+          feeds_tools: string[]
+          formulas: string | null
+          id: string
+          justification: string | null
+          name: string
+          normatividad: Json
+          review_notes: string | null
+          section: Database["public"]["Enums"]["tool_section"]
+          status: Database["public"]["Enums"]["tool_proposal_status"]
+          updated_at: string
+        }
+        Insert: {
+          ai_suggestion?: Json | null
+          author_id: string
+          created_at?: string
+          description: string
+          expert_field?: string | null
+          expert_name?: string | null
+          expert_validated?: boolean
+          feeds_tools?: string[]
+          formulas?: string | null
+          id?: string
+          justification?: string | null
+          name: string
+          normatividad?: Json
+          review_notes?: string | null
+          section?: Database["public"]["Enums"]["tool_section"]
+          status?: Database["public"]["Enums"]["tool_proposal_status"]
+          updated_at?: string
+        }
+        Update: {
+          ai_suggestion?: Json | null
+          author_id?: string
+          created_at?: string
+          description?: string
+          expert_field?: string | null
+          expert_name?: string | null
+          expert_validated?: boolean
+          feeds_tools?: string[]
+          formulas?: string | null
+          id?: string
+          justification?: string | null
+          name?: string
+          normatividad?: Json
+          review_notes?: string | null
+          section?: Database["public"]["Enums"]["tool_section"]
+          status?: Database["public"]["Enums"]["tool_proposal_status"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -121,6 +181,18 @@ export type Database = {
     }
     Enums: {
       tool_status: "empty" | "in_progress" | "done"
+      tool_section:
+        | "arquitectura"
+        | "construccion"
+        | "normatividad"
+        | "mantenimiento"
+        | "otro"
+      tool_proposal_status:
+        | "proposed"
+        | "in_review"
+        | "approved"
+        | "published"
+        | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -249,6 +321,20 @@ export const Constants = {
   public: {
     Enums: {
       tool_status: ["empty", "in_progress", "done"],
+      tool_section: [
+        "arquitectura",
+        "construccion",
+        "normatividad",
+        "mantenimiento",
+        "otro",
+      ],
+      tool_proposal_status: [
+        "proposed",
+        "in_review",
+        "approved",
+        "published",
+        "rejected",
+      ],
     },
   },
 } as const
