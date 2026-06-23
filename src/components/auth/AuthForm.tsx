@@ -1,7 +1,8 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useRef } from "react";
 import { signIn, signUp, signInWithGoogle, type AuthState } from "@/app/auth/actions";
+import { DEMO_EMAIL, DEMO_PASSWORD, isDevEnv } from "@/lib/demo-credentials";
 
 export function AuthForm({ mode }: { mode: "login" | "registro" }) {
   const action = mode === "login" ? signIn : signUp;
@@ -10,9 +11,37 @@ export function AuthForm({ mode }: { mode: "login" | "registro" }) {
     null,
   );
 
+  const formRef = useRef<HTMLFormElement>(null);
+  const showDemo = isDevEnv && mode === "login";
+
+  function fillDemo() {
+    const form = formRef.current;
+    if (!form) return;
+    const email = form.elements.namedItem("email") as HTMLInputElement | null;
+    const password = form.elements.namedItem(
+      "password",
+    ) as HTMLInputElement | null;
+    if (email) email.value = DEMO_EMAIL;
+    if (password) password.value = DEMO_PASSWORD;
+  }
+
   return (
     <div className="w-full">
-      <form action={formAction} className="flex flex-col gap-3">
+      {showDemo && (
+        <button
+          type="button"
+          onClick={fillDemo}
+          title="Solo en desarrollo: rellena correo y contraseña demo"
+          className="mb-4 flex w-full items-center gap-2.5 rounded-md border border-volt/40 bg-volt/10 px-3 py-2 text-left text-[12px] font-semibold text-ink transition-colors hover:bg-volt/20"
+        >
+          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-volt text-[13px] font-extrabold text-on-volt">
+            !
+          </span>
+          Acceso demo (dev) — rellenar credenciales
+        </button>
+      )}
+
+      <form ref={formRef} action={formAction} className="flex flex-col gap-3">
         {mode === "registro" && (
           <Field
             label="Nombre"
