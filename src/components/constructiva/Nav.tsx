@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ConstructivaMark, ConstructivaWordmark } from "./Mark";
 
 const LINKS = [
   { href: "#servicios", label: "Servicios" },
@@ -41,14 +42,8 @@ export function Nav() {
 function Logo() {
   return (
     <Link href="/constructiva" className="flex items-center gap-2.5" aria-label="Constructiva">
-      <span className="grid h-8 w-8 place-items-center rounded-md bg-[var(--cc-lime)]">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16181F" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6" />
-        </svg>
-      </span>
-      <span className="text-[15px] font-extrabold tracking-tight text-[var(--cc-text)]">
-        Constructiva
-      </span>
+      <ConstructivaMark size={28} variant="carbon" />
+      <ConstructivaWordmark className="text-[15px] text-[var(--cc-text)]" />
     </Link>
   );
 }
