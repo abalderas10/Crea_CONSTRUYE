@@ -11,7 +11,7 @@ const C_CELLS: [number, number][] = [
   [0, 1],
   [0, 2],                         // costado izquierdo
   [0, 3],
-  [0, 4], [1, 4], [2, 4], [3, 4], // borde inferior
+  [0, 4], [1, 4], [2, 4], [3, 4], [4, 4], // borde inferior (equilibra el acento)
 ];
 
 // El punto de acento, desprendido arriba a la derecha.
