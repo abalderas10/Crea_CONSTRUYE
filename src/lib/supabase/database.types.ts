@@ -112,6 +112,45 @@ export type Database = {
         }
         Relationships: []
       }
+      constructiva_leads: {
+        Row: {
+          category: string | null
+          created_at: string
+          email: string
+          handled: boolean
+          id: string
+          message: string | null
+          name: string
+          phone: string | null
+          service: Database["public"]["Enums"]["constructiva_service"]
+          source: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          email: string
+          handled?: boolean
+          id?: string
+          message?: string | null
+          name: string
+          phone?: string | null
+          service?: Database["public"]["Enums"]["constructiva_service"]
+          source?: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          email?: string
+          handled?: boolean
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+          service?: Database["public"]["Enums"]["constructiva_service"]
+          source?: string
+        }
+        Relationships: []
+      }
       tool_proposals: {
         Row: {
           ai_suggestion: Json | null
@@ -181,6 +220,7 @@ export type Database = {
     }
     Enums: {
       tool_status: "empty" | "in_progress" | "done"
+      constructiva_service: "construccion" | "mantenimiento"
       tool_section:
         | "arquitectura"
         | "construccion"
@@ -321,6 +361,7 @@ export const Constants = {
   public: {
     Enums: {
       tool_status: ["empty", "in_progress", "done"],
+      constructiva_service: ["construccion", "mantenimiento"],
       tool_section: [
         "arquitectura",
         "construccion",
