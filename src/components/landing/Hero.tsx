@@ -14,20 +14,20 @@ export function Hero() {
       <Container className="relative grid gap-12 pt-16 pb-20 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-8 lg:pt-24 lg:pb-28">
         <div className="animate-float-up">
           <div className="mb-6 inline-flex items-center gap-2">
-            <Pill color="var(--color-volt)">Proforma Inteligente</Pill>
+            <Pill color="var(--color-volt)">Plataforma para crear y construir</Pill>
             <span className="text-xs text-faint">Hecho en México 🇲🇽</span>
           </div>
 
           <h1 className="text-balance text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.4rem]">
-            La proforma inmobiliaria que trabaja{" "}
-            <span className="text-volt">mientras tú duermes.</span>
+            Construye lo que{" "}
+            <span className="text-volt">creas.</span>
           </h1>
 
           <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted sm:text-lg">
-            Análisis de mercado, costos, ROI y riesgos — en{" "}
-            <span className="font-semibold text-ink">horas, no semanas.</span>{" "}
-            Con datos reales de México y un análisis de IA que entiende tu
-            proyecto de principio a fin.
+            Proformas, costos, ROI y riesgos en herramientas de precisión. Un{" "}
+            <span className="font-semibold text-ink">laboratorio para crear las tuyas</span>{" "}
+            y una comunidad que diseña el sector inmobiliario contigo —
+            de la idea a la obra.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">

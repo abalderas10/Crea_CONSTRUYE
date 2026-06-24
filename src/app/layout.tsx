@@ -15,23 +15,25 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://creaconstruye.com"),
   title: {
-    default: "creaConstruye — Proforma Inmobiliaria con IA para México",
+    default: "creaConstruye — Plataforma para crear, diseñar y construir en bienes raíces",
     template: "%s · creaConstruye",
   },
   description:
-    "La proforma inmobiliaria que trabaja mientras tú duermes. Análisis de mercado, costos, ROI y riesgos — en horas, no semanas. Con datos reales de México.",
+    "Construye lo que creas. Plataforma con IA para crear, diseñar y construir en bienes raíces: proformas, costos, ROI y riesgos, un laboratorio de herramientas y comunidad. Con datos reales de México.",
   keywords: [
     "proforma inmobiliaria",
     "desarrollo inmobiliario México",
+    "plataforma de construcción",
+    "diseño y arquitectura",
     "análisis de factibilidad",
     "ROI inmobiliario",
     "estudio de mercado inmobiliario",
     "inteligencia artificial inmobiliaria",
   ],
   openGraph: {
-    title: "creaConstruye — Proforma Inmobiliaria con IA para México",
+    title: "creaConstruye — Construye lo que creas",
     description:
-      "Análisis de mercado, costos, ROI y riesgos — en horas, no semanas. Con datos reales de México.",
+      "Plataforma con IA para crear, diseñar y construir en bienes raíces. De la idea a la obra, con datos reales de México.",
     locale: "es_MX",
     type: "website",
   },

@@ -26,8 +26,8 @@ export function AuthShell({
         <Logo size={32} />
         <div className="relative">
           <p className="max-w-sm text-2xl font-extrabold leading-tight tracking-tight">
-            La proforma inmobiliaria que trabaja{" "}
-            <span className="text-volt">mientras tú duermes.</span>
+            Construye lo que{" "}
+            <span className="text-volt">creas.</span>
           </p>
           <div className="mt-8 max-w-sm">
             <DashboardPreview />
