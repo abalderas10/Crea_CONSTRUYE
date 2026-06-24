@@ -55,6 +55,54 @@ export async function signUp(
   redirect("/app");
 }
 
+/** Envía el correo con el enlace para restablecer la contraseña. */
+export async function requestPasswordReset(
+  _prev: AuthState | { ok: true },
+  formData: FormData,
+): Promise<AuthState | { ok: true }> {
+  if (!isSupabaseConfigured) return notConfigured();
+
+  const email = String(formData.get("email") ?? "").trim();
+  if (!email) return { error: "Escribe tu correo." };
+
+  const origin = (await headers()).get("origin") ?? "";
+  const supabase = await createClient();
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin}/auth/callback?next=/actualizar-password`,
+  });
+
+  // No revelamos si el correo existe (seguridad): siempre ok.
+  if (error && !/rate limit/i.test(error.message)) {
+    return { error: traducirError(error.message) };
+  }
+  return { ok: true };
+}
+
+/** Actualiza la contraseña del usuario con sesión activa (post-enlace). */
+export async function updatePassword(
+  _prev: AuthState,
+  formData: FormData,
+): Promise<AuthState> {
+  if (!isSupabaseConfigured) return notConfigured();
+
+  const password = String(formData.get("password") ?? "");
+  if (password.length < 6) {
+    return { error: "La contraseña debe tener al menos 6 caracteres." };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return { error: "El enlace expiró. Solicita uno nuevo." };
+  }
+
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) return { error: traducirError(error.message) };
+  redirect("/app");
+}
+
 export async function signOut() {
   if (isSupabaseConfigured) {
     const supabase = await createClient();

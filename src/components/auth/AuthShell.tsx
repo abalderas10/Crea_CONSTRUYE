@@ -12,7 +12,7 @@ export function AuthShell({
   title: string;
   subtitle: string;
   children: ReactNode;
-  footer: ReactNode;
+  footer?: ReactNode;
 }) {
   return (
     <div className="grid min-h-screen lg:grid-cols-2">

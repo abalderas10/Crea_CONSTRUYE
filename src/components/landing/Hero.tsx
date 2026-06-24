@@ -19,15 +19,15 @@ export function Hero() {
           </div>
 
           <h1 className="text-balance text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.4rem]">
-            Construye lo que{" "}
-            <span className="text-volt">creas.</span>
+            Diseña, calcula y{" "}
+            <span className="text-volt">construye</span> en un solo lugar.
           </h1>
 
           <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted sm:text-lg">
-            Proformas, costos, ROI y riesgos en herramientas de precisión. Un{" "}
-            <span className="font-semibold text-ink">laboratorio para crear las tuyas</span>{" "}
-            y una comunidad que diseña el sector inmobiliario contigo —
-            de la idea a la obra.
+            La plataforma donde desarrolladores, arquitectos e ingenieros llevan
+            una idea desde la{" "}
+            <span className="font-semibold text-ink">proforma hasta la obra</span>,
+            con herramientas, comunidad e IA que acompaña cada decisión.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
