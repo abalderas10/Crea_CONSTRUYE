@@ -104,3 +104,28 @@ export const TOOLS: Tool[] = [
     sections: 8,
   },
 ];
+
+// ── Grafo de la proforma ─────────────────────────────────────
+// Qué consume y qué alimenta cada herramienta core. Define la
+// modularidad: el orden, las dependencias y qué se desbloquea.
+export const TOOL_GRAPH: Record<ToolId, { consumes: ToolId[]; feeds: ToolId[] }> = {
+  terreno: { consumes: [], feeds: ["zonificacion", "mercado", "costos"] },
+  zonificacion: { consumes: ["terreno"], feeds: ["costos", "mercado"] },
+  mercado: { consumes: ["terreno", "zonificacion"], feeds: ["financiero", "roi"] },
+  costos: { consumes: ["terreno", "zonificacion"], feeds: ["financiero", "cronograma"] },
+  financiero: { consumes: ["costos", "mercado", "cronograma"], feeds: ["roi", "riesgos"] },
+  roi: { consumes: ["financiero", "mercado"], feeds: ["riesgos"] },
+  cronograma: { consumes: ["costos"], feeds: ["financiero", "riesgos"] },
+  riesgos: {
+    consumes: ["terreno", "zonificacion", "mercado", "costos", "financiero", "roi", "cronograma"],
+    feeds: [],
+  },
+};
+
+// Las 8 son fijas (core): por la naturaleza de los datos que capturan
+// y su relevancia, no se quitan de la proforma. Son la columna vertebral.
+export const CORE_TOOL_IDS: ToolId[] = TOOLS.map((t) => t.id);
+
+export function getTool(id: ToolId): Tool | undefined {
+  return TOOLS.find((t) => t.id === id);
+}

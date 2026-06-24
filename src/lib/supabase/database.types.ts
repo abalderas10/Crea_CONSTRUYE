@@ -86,6 +86,7 @@ export type Database = {
         Row: {
           context_summary: string | null
           created_at: string
+          enabled_modules: Json
           id: string
           municipio: string | null
           name: string
@@ -96,6 +97,7 @@ export type Database = {
         Insert: {
           context_summary?: string | null
           created_at?: string
+          enabled_modules?: Json
           id?: string
           municipio?: string | null
           name: string
@@ -106,6 +108,7 @@ export type Database = {
         Update: {
           context_summary?: string | null
           created_at?: string
+          enabled_modules?: Json
           id?: string
           municipio?: string | null
           name?: string

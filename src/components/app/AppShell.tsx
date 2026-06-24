@@ -153,6 +153,7 @@ function Sidebar({
         })}
 
         <SectionLabel>Proyecto</SectionLabel>
+        <NavItem href={`${base}/composicion`} pathname={pathname} label="Composición" icon={<ModulesIcon />} />
         <NavItem href={`${base}/reportes`} pathname={pathname} label="Reportes" icon={<DocIcon />} />
         <NavItem href={`${base}/config`} pathname={pathname} label="Configuración" icon={<GearIcon />} />
 
@@ -236,6 +237,16 @@ function DocIcon() {
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V8z" />
       <path d="M14 3v5h5" />
+    </svg>
+  );
+}
+function ModulesIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="8" height="8" rx="1.5" />
+      <rect x="13" y="3" width="8" height="8" rx="1.5" />
+      <rect x="3" y="13" width="8" height="8" rx="1.5" />
+      <path d="M17 13v8M13 17h8" />
     </svg>
   );
 }
