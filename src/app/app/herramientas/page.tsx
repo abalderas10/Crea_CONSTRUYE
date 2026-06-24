@@ -30,6 +30,7 @@ export default async function HerramientasPage() {
       normatividad: c.normatividad,
       expertValidated: c.expertValidated,
       available: c.available,
+      href: undefined as string | undefined,
     })),
     ...published.map((p) => ({
       key: `pub-${p.id}`,
@@ -40,6 +41,7 @@ export default async function HerramientasPage() {
       normatividad: p.normatividad?.[0]?.doc,
       expertValidated: p.expert_validated,
       available: true,
+      href: `/app/herramientas/${p.id}`,
     })),
   ];
 
@@ -113,6 +115,7 @@ export default async function HerramientasPage() {
                           normatividad={t.normatividad}
                           expertValidated={t.expertValidated}
                           available={t.available}
+                          href={t.href}
                         />
                       ))}
                     </div>

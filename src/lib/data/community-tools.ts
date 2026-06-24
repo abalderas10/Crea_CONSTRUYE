@@ -68,3 +68,25 @@ export async function getProposal(id: string): Promise<ToolProposal | null> {
     .maybeSingle();
   return (data as ToolProposal | null) ?? null;
 }
+
+export interface ToolComment {
+  id: string;
+  proposal_id: string;
+  author_id: string;
+  author_name: string;
+  author_area: string | null;
+  body: string;
+  created_at: string;
+}
+
+/** Comentarios de una propuesta (orden cronológico). */
+export async function listComments(proposalId: string): Promise<ToolComment[]> {
+  if (!isSupabaseConfigured) return [];
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("tool_comments")
+    .select("*")
+    .eq("proposal_id", proposalId)
+    .order("created_at", { ascending: true });
+  return (data as ToolComment[] | null) ?? [];
+}

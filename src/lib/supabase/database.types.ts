@@ -154,6 +154,44 @@ export type Database = {
         }
         Relationships: []
       }
+      tool_comments: {
+        Row: {
+          author_area: string | null
+          author_id: string
+          author_name: string
+          body: string
+          created_at: string
+          id: string
+          proposal_id: string
+        }
+        Insert: {
+          author_area?: string | null
+          author_id: string
+          author_name: string
+          body: string
+          created_at?: string
+          id?: string
+          proposal_id: string
+        }
+        Update: {
+          author_area?: string | null
+          author_id?: string
+          author_name?: string
+          body?: string
+          created_at?: string
+          id?: string
+          proposal_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tool_comments_proposal_id_fkey"
+            columns: ["proposal_id"]
+            isOneToOne: false
+            referencedRelation: "tool_proposals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tool_proposals: {
         Row: {
           ai_suggestion: Json | null

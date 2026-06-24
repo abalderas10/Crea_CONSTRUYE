@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   generateToolSuggestion,
@@ -139,13 +140,12 @@ export function ProposalCard({ proposal }: { proposal: ToolProposal }) {
       )}
 
       <div className="mt-4 flex items-center justify-between border-t border-line pt-3">
-        <span className="text-[11px] text-faint">
-          {new Date(proposal.created_at).toLocaleDateString("es-MX", {
-            day: "numeric",
-            month: "short",
-            year: "numeric",
-          })}
-        </span>
+        <Link
+          href={`/app/herramientas/${proposal.id}`}
+          className="text-[11px] font-bold text-volt hover:underline"
+        >
+          Ver discusión →
+        </Link>
         <button
           onClick={onDelete}
           disabled={pending}

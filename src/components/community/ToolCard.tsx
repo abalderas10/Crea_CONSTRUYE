@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 
 export function ToolCard({
   name,
@@ -9,6 +10,7 @@ export function ToolCard({
   expertValidated,
   available,
   footer,
+  href,
 }: {
   name: string;
   description: string;
@@ -18,9 +20,25 @@ export function ToolCard({
   expertValidated?: boolean;
   available?: boolean;
   footer?: ReactNode;
+  href?: string;
 }) {
+  const Wrapper = href
+    ? ({ children }: { children: ReactNode }) => (
+        <Link
+          href={href}
+          className="flex flex-col rounded-xl border border-line bg-raised p-4 transition-colors hover:border-faint"
+        >
+          {children}
+        </Link>
+      )
+    : ({ children }: { children: ReactNode }) => (
+        <div className="flex flex-col rounded-xl border border-line bg-raised p-4 transition-colors hover:border-faint">
+          {children}
+        </div>
+      );
+
   return (
-    <div className="flex flex-col rounded-xl border border-line bg-raised p-4 transition-colors hover:border-faint">
+    <Wrapper>
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2.5">
           <span
@@ -83,6 +101,6 @@ export function ToolCard({
       )}
 
       {footer && <div className="mt-3">{footer}</div>}
-    </div>
+    </Wrapper>
   );
 }

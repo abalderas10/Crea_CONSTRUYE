@@ -112,6 +112,65 @@ export async function generateToolSuggestion(
   return { ok: true };
 }
 
+/** Agrega un comentario a la discusión de una herramienta. */
+export async function addComment(
+  proposalId: string,
+  formData: FormData,
+): Promise<{ error: string } | { ok: true }> {
+  const body = String(formData.get("body") ?? "").trim();
+  if (!body) return { error: "Escribe algo antes de enviar." };
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { error: "Inicia sesión para participar." };
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("full_name")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  const authorName =
+    profile?.full_name ||
+    (user.user_metadata?.full_name as string | undefined) ||
+    user.email?.split("@")[0] ||
+    "Miembro";
+
+  const { error } = await supabase.from("tool_comments").insert({
+    proposal_id: proposalId,
+    author_id: user.id,
+    author_name: authorName,
+    body,
+  });
+
+  if (error) return { error: "No se pudo publicar el comentario." };
+  revalidatePath(`/app/herramientas/${proposalId}`);
+  return { ok: true };
+}
+
+/** Borra un comentario (autor o admin, según RLS). */
+export async function deleteComment(
+  commentId: string,
+  proposalId: string,
+): Promise<{ error: string } | { ok: true }> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { error: "Sesión expirada." };
+
+  const { error } = await supabase
+    .from("tool_comments")
+    .delete()
+    .eq("id", commentId);
+
+  if (error) return { error: "No se pudo borrar." };
+  revalidatePath(`/app/herramientas/${proposalId}`);
+  return { ok: true };
+}
+
 /** Borra una propuesta propia. */
 export async function deleteProposal(
   proposalId: string,
