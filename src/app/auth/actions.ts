@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { isDevEnv, isDemoLogin } from "@/lib/demo-credentials";
 
 export type AuthState = { error: string } | null;
 
@@ -18,10 +19,16 @@ export async function signIn(
   _prev: AuthState,
   formData: FormData,
 ): Promise<AuthState> {
-  if (!isSupabaseConfigured) return notConfigured();
-
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
+
+  // Atajo de desarrollo: sin Supabase configurado, las credenciales demo
+  // entran directo a la app (que corre en modo UI-only con un usuario demo).
+  if (isDevEnv && !isSupabaseConfigured && isDemoLogin(email, password)) {
+    redirect("/app");
+  }
+
+  if (!isSupabaseConfigured) return notConfigured();
 
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
