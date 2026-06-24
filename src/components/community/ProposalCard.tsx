@@ -8,6 +8,8 @@ import {
   deleteProposal,
 } from "@/app/app/herramientas/actions";
 import { getSection, STATUS_META } from "@/lib/community/sections";
+import { rigorLevel } from "@/lib/community/rigor";
+import { RigorBadge } from "@/components/community/RigorBadge";
 import type { ToolProposal } from "@/lib/data/community-tools";
 
 export function ProposalCard({ proposal }: { proposal: ToolProposal }) {
@@ -19,6 +21,12 @@ export function ProposalCard({ proposal }: { proposal: ToolProposal }) {
   const section = getSection(proposal.section);
   const status = STATUS_META[proposal.status];
   const sug = proposal.ai_suggestion;
+  const nivel = rigorLevel({
+    referencias: proposal.referencias,
+    avalesCount: proposal.avales_count,
+    casoPrueba: proposal.caso_prueba,
+    status: proposal.status,
+  });
 
   function onSuggest() {
     setError(null);
@@ -67,15 +75,20 @@ export function ProposalCard({ proposal }: { proposal: ToolProposal }) {
         {proposal.description}
       </p>
 
-      {proposal.expert_validated && (
-        <div className="mt-3 inline-flex items-center gap-1.5 rounded-sm bg-violet/12 px-2 py-1 text-[10px] font-bold text-violet-sub">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M20 6L9 17l-5-5" />
-          </svg>
-          Validada por {proposal.expert_name || "experto"}
-          {proposal.expert_field && ` · ${proposal.expert_field}`}
-        </div>
-      )}
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <RigorBadge level={nivel} />
+        {(proposal.referencias?.length ?? 0) > 0 && (
+          <span className="text-[10px] text-faint">
+            {proposal.referencias.length} fuente
+            {proposal.referencias.length === 1 ? "" : "s"}
+          </span>
+        )}
+        {proposal.avales_count > 0 && (
+          <span className="text-[10px] text-faint">
+            {proposal.avales_count} aval{proposal.avales_count === 1 ? "" : "es"}
+          </span>
+        )}
+      </div>
 
       {/* Sugerencia del agente AI */}
       {sug ? (

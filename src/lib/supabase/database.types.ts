@@ -154,6 +154,56 @@ export type Database = {
         }
         Relationships: []
       }
+      tool_avales: {
+        Row: {
+          area: string | null
+          author_id: string
+          cedula: string
+          created_at: string
+          declaracion: string
+          id: string
+          institucion: string | null
+          nombre: string
+          profesion: string
+          proposal_id: string
+          verificado: boolean
+        }
+        Insert: {
+          area?: string | null
+          author_id: string
+          cedula: string
+          created_at?: string
+          declaracion: string
+          id?: string
+          institucion?: string | null
+          nombre: string
+          profesion: string
+          proposal_id: string
+          verificado?: boolean
+        }
+        Update: {
+          area?: string | null
+          author_id?: string
+          cedula?: string
+          created_at?: string
+          declaracion?: string
+          id?: string
+          institucion?: string | null
+          nombre?: string
+          profesion?: string
+          proposal_id?: string
+          verificado?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tool_avales_proposal_id_fkey"
+            columns: ["proposal_id"]
+            isOneToOne: false
+            referencedRelation: "tool_proposals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tool_comments: {
         Row: {
           author_area: string | null
@@ -196,6 +246,8 @@ export type Database = {
         Row: {
           ai_suggestion: Json | null
           author_id: string
+          avales_count: number
+          caso_prueba: Json | null
           created_at: string
           description: string
           expert_field: string | null
@@ -206,6 +258,7 @@ export type Database = {
           id: string
           justification: string | null
           name: string
+          referencias: Json
           normatividad: Json
           review_notes: string | null
           section: Database["public"]["Enums"]["tool_section"]
@@ -215,6 +268,8 @@ export type Database = {
         Insert: {
           ai_suggestion?: Json | null
           author_id: string
+          avales_count?: number
+          caso_prueba?: Json | null
           created_at?: string
           description: string
           expert_field?: string | null
@@ -226,6 +281,7 @@ export type Database = {
           justification?: string | null
           name: string
           normatividad?: Json
+          referencias?: Json
           review_notes?: string | null
           section?: Database["public"]["Enums"]["tool_section"]
           status?: Database["public"]["Enums"]["tool_proposal_status"]
@@ -234,6 +290,8 @@ export type Database = {
         Update: {
           ai_suggestion?: Json | null
           author_id?: string
+          avales_count?: number
+          caso_prueba?: Json | null
           created_at?: string
           description?: string
           expert_field?: string | null
@@ -245,6 +303,7 @@ export type Database = {
           justification?: string | null
           name?: string
           normatividad?: Json
+          referencias?: Json
           review_notes?: string | null
           section?: Database["public"]["Enums"]["tool_section"]
           status?: Database["public"]["Enums"]["tool_proposal_status"]

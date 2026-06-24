@@ -4,6 +4,11 @@ import { useState, useActionState, useEffect, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { createToolProposal, type CreateToolState } from "@/app/app/herramientas/actions";
 import { SECTIONS } from "@/lib/community/sections";
+import {
+  REFERENCIA_TIPO_LABEL,
+  type Referencia,
+  type ReferenciaTipo,
+} from "@/lib/community/rigor";
 
 export function CreateToolButton() {
   const [open, setOpen] = useState(false);
@@ -26,7 +31,21 @@ function CreateToolModal({ onClose }: { onClose: () => void }) {
     createToolProposal,
     null,
   );
-  const [isExpert, setIsExpert] = useState(false);
+  const [referencias, setReferencias] = useState<Referencia[]>([
+    { tipo: "libro", titulo: "" },
+  ]);
+
+  function updateRef(i: number, patch: Partial<Referencia>) {
+    setReferencias((rs) => rs.map((r, j) => (j === i ? { ...r, ...patch } : r)));
+  }
+  function addRef() {
+    setReferencias((rs) => [...rs, { tipo: "libro", titulo: "" }]);
+  }
+  function removeRef(i: number) {
+    setReferencias((rs) => rs.filter((_, j) => j !== i));
+  }
+
+  const refsLimpias = referencias.filter((r) => r.titulo.trim());
 
   useEffect(() => {
     if (state && "ok" in state && state.ok) {
@@ -120,35 +139,116 @@ function CreateToolModal({ onClose }: { onClose: () => void }) {
             />
           </Field>
 
-          {/* Validación por experto */}
-          <div className="rounded-lg border border-line bg-raised p-3">
-            <label className="flex cursor-pointer items-center gap-2.5">
-              <input
-                type="checkbox"
-                name="expert_validated"
-                checked={isExpert}
-                onChange={(e) => setIsExpert(e.target.checked)}
-                className="h-4 w-4 accent-violet"
-              />
-              <span className="text-[13px] font-semibold text-ink">
-                Soy experto en esto y la valido
-              </span>
-            </label>
-            {isExpert && (
-              <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                <input
-                  name="expert_name"
-                  placeholder="Tu nombre / credencial"
-                  className={inputCls}
-                />
-                <input
-                  name="expert_field"
-                  placeholder="Área (ej. Ing. estructural)"
-                  className={inputCls}
-                />
+          {/* Referencias / fuentes — el "de acuerdo al libro" */}
+          <div className="rounded-lg border border-line bg-raised p-3.5">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-[12px] font-bold text-ink">
+                  Fuentes que la sustentan
+                </span>
+                <p className="mt-0.5 text-[11px] leading-relaxed text-faint">
+                  Cita el libro, norma o paper en que se basa. Esto la hace
+                  «sustentada» — el rigor sale de la evidencia, no de decir «soy
+                  experto».
+                </p>
               </div>
-            )}
+            </div>
+
+            <div className="mt-3 space-y-2.5">
+              {referencias.map((r, i) => (
+                <div key={i} className="rounded-md border border-line bg-base p-2.5">
+                  <div className="flex items-center gap-2">
+                    <select
+                      value={r.tipo}
+                      onChange={(e) =>
+                        updateRef(i, { tipo: e.target.value as ReferenciaTipo })
+                      }
+                      className="rounded-md border border-line bg-raised px-2 py-1.5 text-[12px] text-ink focus:border-volt focus:outline-none"
+                    >
+                      {(Object.keys(REFERENCIA_TIPO_LABEL) as ReferenciaTipo[]).map(
+                        (t) => (
+                          <option key={t} value={t}>
+                            {REFERENCIA_TIPO_LABEL[t]}
+                          </option>
+                        ),
+                      )}
+                    </select>
+                    <input
+                      value={r.titulo}
+                      onChange={(e) => updateRef(i, { titulo: e.target.value })}
+                      placeholder="Título de la fuente"
+                      className="flex-1 rounded-md border border-line bg-raised px-2.5 py-1.5 text-[12px] text-ink placeholder:text-faint focus:border-volt focus:outline-none"
+                    />
+                    {referencias.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => removeRef(i)}
+                        className="grid h-7 w-7 place-items-center rounded-md text-faint hover:bg-hover hover:text-danger"
+                        aria-label="Quitar fuente"
+                      >
+                        ✕
+                      </button>
+                    )}
+                  </div>
+                  <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                    <input
+                      value={r.autor ?? ""}
+                      onChange={(e) => updateRef(i, { autor: e.target.value })}
+                      placeholder="Autor / editorial / autoridad"
+                      className="rounded-md border border-line bg-raised px-2.5 py-1.5 text-[12px] text-ink placeholder:text-faint focus:border-volt focus:outline-none"
+                    />
+                    <input
+                      value={r.detalle ?? ""}
+                      onChange={(e) => updateRef(i, { detalle: e.target.value })}
+                      placeholder="Edición, página, artículo, año"
+                      className="rounded-md border border-line bg-raised px-2.5 py-1.5 text-[12px] text-ink placeholder:text-faint focus:border-volt focus:outline-none"
+                    />
+                  </div>
+                  <input
+                    value={r.url ?? ""}
+                    onChange={(e) => updateRef(i, { url: e.target.value })}
+                    placeholder="URL o DOI (opcional)"
+                    className="mt-2 w-full rounded-md border border-line bg-raised px-2.5 py-1.5 text-[12px] text-ink placeholder:text-faint focus:border-volt focus:outline-none"
+                  />
+                </div>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={addRef}
+              className="mt-2.5 text-[12px] font-bold text-volt hover:underline"
+            >
+              + Agregar fuente
+            </button>
+            <input type="hidden" name="referencias" value={JSON.stringify(refsLimpias)} />
           </div>
+
+          {/* Caso de prueba (opcional) */}
+          <details className="rounded-lg border border-line bg-raised p-3.5">
+            <summary className="cursor-pointer text-[12px] font-bold text-ink">
+              Caso de prueba resuelto{" "}
+              <span className="font-normal text-faint">(opcional · suma rigor)</span>
+            </summary>
+            <p className="mt-2 text-[11px] leading-relaxed text-faint">
+              Un ejemplo con números reales que demuestre que la herramienta da
+              el resultado correcto.
+            </p>
+            <div className="mt-3 space-y-2">
+              <textarea
+                name="caso_entradas"
+                rows={2}
+                placeholder="Entradas (ej. superficie 520 m², COS 0.6, CUS 3.0)"
+                className={inputCls}
+              />
+              <textarea
+                name="caso_esperado"
+                rows={2}
+                placeholder="Resultado esperado (ej. 1,560 m² construibles, desplante 312 m²)"
+                className={inputCls}
+              />
+            </div>
+          </details>
 
           {state && "error" in state && (
             <p className="rounded-md bg-danger/10 px-3 py-2 text-[12px] text-danger">

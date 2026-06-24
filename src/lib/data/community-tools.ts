@@ -2,6 +2,7 @@ import "server-only";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import type { ToolSection, ToolProposalStatus } from "@/lib/community/sections";
+import type { Referencia, CasoPrueba } from "@/lib/community/rigor";
 
 // La tabla tool_proposals aún no está en database.types.ts (MCP de
 // Supabase desconectado). Tipamos la fila a mano hasta regenerar tipos.
@@ -21,8 +22,25 @@ export interface ToolProposal {
   ai_suggestion: AiSuggestion | null;
   feeds_tools: string[];
   normatividad: { entidad?: string; doc?: string }[];
+  referencias: Referencia[];
+  caso_prueba: CasoPrueba | null;
+  avales_count: number;
   created_at: string;
   updated_at: string;
+}
+
+export interface ToolAval {
+  id: string;
+  proposal_id: string;
+  author_id: string;
+  nombre: string;
+  profesion: string;
+  cedula: string;
+  institucion: string | null;
+  area: string | null;
+  declaracion: string;
+  verificado: boolean;
+  created_at: string;
 }
 
 export interface AiSuggestion {
@@ -89,4 +107,16 @@ export async function listComments(proposalId: string): Promise<ToolComment[]> {
     .eq("proposal_id", proposalId)
     .order("created_at", { ascending: true });
   return (data as ToolComment[] | null) ?? [];
+}
+
+/** Avales firmados de una propuesta. */
+export async function listAvales(proposalId: string): Promise<ToolAval[]> {
+  if (!isSupabaseConfigured) return [];
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("tool_avales")
+    .select("*")
+    .eq("proposal_id", proposalId)
+    .order("created_at", { ascending: false });
+  return (data as ToolAval[] | null) ?? [];
 }

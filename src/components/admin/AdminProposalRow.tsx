@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { setProposalStatus } from "@/app/app/admin/actions";
 import { getSection, STATUS_META, type ToolProposalStatus } from "@/lib/community/sections";
+import { rigorLevel, RIGOR_META } from "@/lib/community/rigor";
 import type { ToolProposal } from "@/lib/data/community-tools";
 
 const FLOW: ToolProposalStatus[] = [
@@ -22,6 +23,12 @@ export function AdminProposalRow({ proposal }: { proposal: ToolProposal }) {
   const [open, setOpen] = useState(false);
 
   const section = getSection(proposal.section);
+  const nivel = rigorLevel({
+    referencias: proposal.referencias,
+    avalesCount: proposal.avales_count,
+    casoPrueba: proposal.caso_prueba,
+    status: proposal.status,
+  });
 
   function changeStatus(status: ToolProposalStatus) {
     setError(null);
@@ -51,8 +58,8 @@ export function AdminProposalRow({ proposal }: { proposal: ToolProposal }) {
               {proposal.name}
             </h3>
             <span className="text-[11px] text-faint">
-              {section.name}
-              {proposal.expert_validated && " · Experto"}
+              {section.name} · {RIGOR_META[nivel].label}
+              {proposal.avales_count > 0 && ` · ${proposal.avales_count} aval(es)`}
             </span>
           </div>
         </div>

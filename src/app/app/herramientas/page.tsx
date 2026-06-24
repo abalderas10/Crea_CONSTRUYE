@@ -6,6 +6,7 @@ import { ToolCard } from "@/components/community/ToolCard";
 import { CreateToolButton } from "@/components/community/CreateToolForm";
 import { SECTIONS, getSection } from "@/lib/community/sections";
 import { CATALOG } from "@/lib/community/catalog";
+import { rigorLevel } from "@/lib/community/rigor";
 import { listPublishedTools, listMyProposals } from "@/lib/data/community-tools";
 
 export const metadata: Metadata = { title: "Herramientas" };
@@ -28,7 +29,7 @@ export default async function HerramientasPage() {
       description: c.description,
       feeds: c.feeds,
       normatividad: c.normatividad,
-      expertValidated: c.expertValidated,
+      rigor: c.rigor,
       available: c.available,
       href: undefined as string | undefined,
     })),
@@ -39,7 +40,12 @@ export default async function HerramientasPage() {
       description: p.description,
       feeds: p.feeds_tools,
       normatividad: p.normatividad?.[0]?.doc,
-      expertValidated: p.expert_validated,
+      rigor: rigorLevel({
+        referencias: p.referencias,
+        avalesCount: p.avales_count,
+        casoPrueba: p.caso_prueba,
+        status: p.status,
+      }),
       available: true,
       href: `/app/herramientas/${p.id}`,
     })),
@@ -113,7 +119,7 @@ export default async function HerramientasPage() {
                           color={getSection(t.section).color}
                           feeds={t.feeds}
                           normatividad={t.normatividad}
-                          expertValidated={t.expertValidated}
+                          rigor={t.rigor}
                           available={t.available}
                           href={t.href}
                         />

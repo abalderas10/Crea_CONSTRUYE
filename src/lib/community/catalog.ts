@@ -1,4 +1,5 @@
 import type { ToolSection } from "./sections";
+import type { RigorLevel } from "./rigor";
 
 // Herramientas "core" ya disponibles en la plataforma.
 // Sirven como semilla del catálogo y como ejemplo de lo que la
@@ -13,7 +14,8 @@ export interface CatalogTool {
   feeds: string[];
   /** Normatividad en la que se basa (para sección Legal). */
   normatividad?: string;
-  expertValidated?: boolean;
+  /** Nivel de rigor (calculado de su evidencia). */
+  rigor?: RigorLevel;
   /** true = lista para usar; false = pendiente de construir. */
   available: boolean;
 }
@@ -27,6 +29,7 @@ export const CATALOG: CatalogTool[] = [
       "Envolvente construible según el Coeficiente de Ocupación y Utilización del Suelo de la Ciudad de México (CUZUS / SEDUVI).",
     feeds: ["terreno", "zonificacion", "costos"],
     normatividad: "CDMX · SEDUVI · Programa de Desarrollo Urbano",
+    rigor: "revisada",
     available: true,
   },
   {
@@ -37,6 +40,7 @@ export const CATALOG: CatalogTool[] = [
       "Misma envolvente con las reglas del Plan Municipal de Desarrollo Urbano del Estado de México (SEDUI).",
     feeds: ["terreno", "zonificacion", "costos"],
     normatividad: "Edomex · SEDUI · Plan Municipal de Desarrollo Urbano",
+    rigor: "revisada",
     available: true,
   },
   {
@@ -47,7 +51,7 @@ export const CATALOG: CatalogTool[] = [
       "Predimensionamiento de estructura (cargas, claros, sistema) para alimentar el presupuesto de obra. Validable por ingeniero estructurista.",
     feeds: ["costos"],
     normatividad: "NTC · Reglamento de Construcciones (estructuras)",
-    expertValidated: true,
+    rigor: "avalada",
     available: false,
   },
   {

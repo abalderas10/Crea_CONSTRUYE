@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { RigorBadge } from "@/components/community/RigorBadge";
+import type { RigorLevel } from "@/lib/community/rigor";
 
 export function ToolCard({
   name,
@@ -7,7 +9,7 @@ export function ToolCard({
   color,
   feeds,
   normatividad,
-  expertValidated,
+  rigor,
   available,
   footer,
   href,
@@ -17,7 +19,7 @@ export function ToolCard({
   color: string;
   feeds?: string[];
   normatividad?: string;
-  expertValidated?: boolean;
+  rigor?: RigorLevel;
   available?: boolean;
   footer?: ReactNode;
   href?: string;
@@ -66,12 +68,9 @@ export function ToolCard({
         {description}
       </p>
 
-      {expertValidated && (
-        <div className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-sm bg-violet/12 px-2 py-1 text-[10px] font-bold text-violet-sub">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M20 6L9 17l-5-5" />
-          </svg>
-          Validada por experto humano
+      {rigor && rigor !== "borrador" && (
+        <div className="mt-3">
+          <RigorBadge level={rigor} />
         </div>
       )}
 
