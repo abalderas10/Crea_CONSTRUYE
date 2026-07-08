@@ -1,0 +1,12 @@
+# Copia este archivo a .dev.vars para desarrollo local con `wrangler dev` / `opennextjs-cloudflare preview`.
+# En producción, estas variables se configuran como Secrets en el dashboard de Cloudflare
+# (Workers & Pages → tu proyecto → Settings → Variables and Secrets) o con:
+#   wrangler secret put NOMBRE_VARIABLE
+
+# ── Supabase ──────────────────────────────────────────────────────
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+# NEXT_PUBLIC_SUPABASE_ANON_KEY=
+
+# ── Anthropic (Claude) ────────────────────────────────────────────
+ANTHROPIC_API_KEY=
