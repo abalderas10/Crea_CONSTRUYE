@@ -1,12 +1,14 @@
 import Link from "next/link";
-import { listAllProposals, listLeads } from "@/lib/data/admin";
+import { listAllProposals, listLeads, listInterest } from "@/lib/data/admin";
 import { STATUS_META, type ToolProposalStatus } from "@/lib/community/sections";
 
 export default async function AdminDashboard() {
-  const [proposals, leads] = await Promise.all([
+  const [proposals, leads, interest] = await Promise.all([
     listAllProposals(),
     listLeads(),
+    listInterest(),
   ]);
+  const interestPend = interest.filter((i) => !i.handled).length;
 
   const byStatus = (s: ToolProposalStatus) =>
     proposals.filter((p) => p.status === s).length;
@@ -90,6 +92,41 @@ export default async function AdminDashboard() {
           <div className="rounded-xl border border-line bg-raised p-4">
             <div className="tabular text-2xl font-extrabold text-faint">
               {leads.length - pendientesLeads}
+            </div>
+            <div className="mt-0.5 text-[12px] text-muted">Atendidos</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Interesados en la plataforma */}
+      <section className="mt-8">
+        <div className="flex items-center justify-between">
+          <h2 className="text-[11px] font-bold uppercase tracking-[0.15em] text-faint">
+            Comunidad · Interesados
+          </h2>
+          <Link
+            href="/app/admin/interesados"
+            className="text-[12px] font-semibold text-volt hover:underline"
+          >
+            Ver registros →
+          </Link>
+        </div>
+        <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <div className="rounded-xl border border-line bg-raised p-4">
+            <div className="tabular text-2xl font-extrabold text-ink">
+              {interest.length}
+            </div>
+            <div className="mt-0.5 text-[12px] text-muted">Total</div>
+          </div>
+          <div className="rounded-xl border border-line bg-raised p-4">
+            <div className="tabular text-2xl font-extrabold text-volt">
+              {interestPend}
+            </div>
+            <div className="mt-0.5 text-[12px] text-muted">Por contactar</div>
+          </div>
+          <div className="rounded-xl border border-line bg-raised p-4">
+            <div className="tabular text-2xl font-extrabold text-faint">
+              {interest.length - interestPend}
             </div>
             <div className="mt-0.5 text-[12px] text-muted">Atendidos</div>
           </div>

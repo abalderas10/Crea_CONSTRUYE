@@ -40,3 +40,53 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# impeccable-ignore-start
+# Impeccable skill: vendored source (no commit del repo upstream) y estado efímero.
+# Compartimos solo .impeccable/config.json (nuestra config de detector).
+# Si prefieres tratarlo como submodule, ejecuta: git submodule add
+# https://github.com/pbakaus/impeccable .impeccable y elimina este bloque.
+.impeccable/.git
+.impeccable/.gitignore
+.impeccable/.agents/
+.impeccable/.claude/
+.impeccable/.claude-plugin/
+.impeccable/.codex/
+.impeccable/.cursor/
+.impeccable/.gemini/
+.impeccable/.github/
+.impeccable/.grok/
+.impeccable/.kiro/
+.impeccable/.opencode/
+.impeccable/.pi/
+.impeccable/.qoder/
+.impeccable/.rovodev/
+.impeccable/.trae/
+.impeccable/.trae-cn/
+.impeccable/.vibe/
+.impeccable/cli/
+.impeccable/demos/
+.impeccable/dist/
+.impeccable/docs/
+.impeccable/extension/
+.impeccable/functions/
+.impeccable/impeccable.config.json
+.impeccable/node_modules/
+.impeccable/package-lock.json
+.impeccable/package.json
+.impeccable/plugin/
+.impeccable/scripts/
+.impeccable/skill/
+.impeccable/site/
+.impeccable/tests/
+.impeccable/bun.lock
+.impeccable/biome.json
+.impeccable/skills-lock.json
+.impeccable/config.local.json
+.impeccable/hook.cache.json
+.impeccable/hook.pending.json
+.impeccable/*.png
+.impeccable/live/
+# Link generado por `npx impeccable link` — se regenera, no commit.
+.opencode/skills/impeccable/
+# impecable-ignore-end

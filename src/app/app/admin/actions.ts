@@ -40,6 +40,25 @@ export async function setProposalStatus(
   return { ok: true };
 }
 
+/** Marca un registro de interés como atendido / no atendido (admin). */
+export async function setInterestHandled(
+  interestId: string,
+  handled: boolean,
+): Promise<{ error: string } | { ok: true }> {
+  if (!(await checkIsAdmin())) return { error: "No autorizado." };
+
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("interest_signups")
+    .update({ handled })
+    .eq("id", interestId);
+
+  if (error) return { error: "No se pudo actualizar." };
+  revalidatePath("/app/admin/interesados");
+  revalidatePath("/app/admin");
+  return { ok: true };
+}
+
 /** Marca un lead como atendido / no atendido (admin). */
 export async function setLeadHandled(
   leadId: string,

@@ -12,7 +12,17 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
-    ignores: [".next/**", "out/**", "build/**", "next-env.d.ts"],
+    ignores: [
+      ".next/**",
+      "out/**",
+      "build/**",
+      "next-env.d.ts",
+      // Impeccable submodule (skill vendor) — no lintamos código de terceros.
+      ".impeccable/**",
+      ".opencode/**",
+      // Salidas generadas.
+      ".next/types/**",
+    ],
   },
 ];
 

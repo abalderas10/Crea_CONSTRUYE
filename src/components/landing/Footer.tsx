@@ -14,7 +14,7 @@ const COLS = [
     title: "Recursos",
     links: [
       { label: "Blog", href: "/blog" },
-      { label: "Documentación", href: "#" },
+      { label: "Únete a la comunidad", href: "/unete" },
       { label: "FAQ", href: "#faq" },
       { label: "Contacto", href: "/contacto" },
     ],

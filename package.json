@@ -6,10 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "detect": "npx impeccable detect src/",
+    "detect:json": "npx impeccable detect src/ --json"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.104.2",
+    "@react-pdf/renderer": "^4.5.1",
     "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.108.2",
     "next": "15.5.9",
@@ -28,5 +31,6 @@
   },
   "optionalDependencies": {
     "lightningcss-win32-x64-msvc": "^1.32.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

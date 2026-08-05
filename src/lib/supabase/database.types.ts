@@ -207,6 +207,42 @@ export type Database = {
           },
         ]
       }
+      interest_signups: {
+        Row: {
+          city: string | null
+          created_at: string
+          email: string
+          handled: boolean
+          id: string
+          message: string | null
+          name: string
+          role: string | null
+          source: string
+        }
+        Insert: {
+          city?: string | null
+          created_at?: string
+          email: string
+          handled?: boolean
+          id?: string
+          message?: string | null
+          name: string
+          role?: string | null
+          source?: string
+        }
+        Update: {
+          city?: string | null
+          created_at?: string
+          email?: string
+          handled?: boolean
+          id?: string
+          message?: string | null
+          name?: string
+          role?: string | null
+          source?: string
+        }
+        Relationships: []
+      }
       tool_comments: {
         Row: {
           author_area: string | null

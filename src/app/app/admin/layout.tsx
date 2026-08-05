@@ -26,6 +26,7 @@ export default async function AdminLayout({
           <AdminLink href="/app/admin">Dashboard</AdminLink>
           <AdminLink href="/app/admin/herramientas">Herramientas</AdminLink>
           <AdminLink href="/app/admin/leads">Leads</AdminLink>
+          <AdminLink href="/app/admin/interesados">Interesados</AdminLink>
         </nav>
         <div className="ml-auto">
           <UserMenu user={user} />

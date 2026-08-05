@@ -5,6 +5,7 @@ import type { ToolProposal } from "@/lib/data/community-tools";
 import type { Database } from "@/lib/supabase/database.types";
 
 export type Lead = Database["public"]["Tables"]["constructiva_leads"]["Row"];
+export type Interest = Database["public"]["Tables"]["interest_signups"]["Row"];
 
 /** Todas las propuestas (RLS admin). */
 export async function listAllProposals(): Promise<ToolProposal[]> {
@@ -26,4 +27,15 @@ export async function listLeads(): Promise<Lead[]> {
     .select("*")
     .order("created_at", { ascending: false });
   return (data as Lead[] | null) ?? [];
+}
+
+/** Registros de interés en la plataforma (RLS admin). */
+export async function listInterest(): Promise<Interest[]> {
+  if (!isSupabaseConfigured) return [];
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("interest_signups")
+    .select("*")
+    .order("created_at", { ascending: false });
+  return (data as Interest[] | null) ?? [];
 }
