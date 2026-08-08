@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { AuthShell } from "@/components/auth/AuthShell";
-import { AuthForm } from "@/components/auth/AuthForm";
+import { AuthFormWithSuspense } from "@/components/auth/AuthFormWithSuspense";
 
 export const metadata: Metadata = { title: "Entrar" };
 
@@ -19,7 +19,7 @@ export default function LoginPage() {
         </>
       }
     >
-      <AuthForm mode="login" />
+      <AuthFormWithSuspense mode="login" />
     </AuthShell>
   );
 }

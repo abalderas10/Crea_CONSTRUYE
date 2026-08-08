@@ -144,6 +144,11 @@ automáticamente.)
 > (paso 2.4) para que apunten a `creaconstruye.abdev.click` en lugar de
 > `localhost`.
 
+> **Personaliza los emails de Supabase**: el template por defecto dice
+> "Supabase". Para que digan "creaConstruye" con tu branding, ve a
+> **Authentication → Email Templates** y personaliza los 4 templates con
+> la guía [`supabase-email-templates.md`](./supabase-email-templates.md).
+
 ---
 
 ## 5 · Verificación post-despliegue

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { signIn, signUp, signInWithGoogle, type AuthState } from "@/app/auth/actions";
 
 export function AuthForm({ mode }: { mode: "login" | "registro" }) {
@@ -11,8 +12,37 @@ export function AuthForm({ mode }: { mode: "login" | "registro" }) {
     null,
   );
 
+  // Mostrar el motivo del error que llega del callback de auth (?reason=)
+  const searchParams = useSearchParams();
+  const reasonFromUrl = searchParams.get("reason");
+  const errorFromUrl = searchParams.get("error");
+  const [message, setMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (reasonFromUrl) {
+      setMessage(reasonFromUrl);
+    } else if (errorFromUrl && !message) {
+      setMessage(null);
+    }
+  }, [reasonFromUrl, errorFromUrl, message]);
+
+  const displayError = state?.error ?? message;
+
   return (
     <div className="w-full">
+      {reasonFromUrl && (
+        <div className="mb-3 rounded-md border border-violet/40 bg-violet/10 p-3 text-[12px] leading-relaxed text-violet-sub">
+          <p className="font-bold">ℹ️ Información del enlace:</p>
+          <p className="mt-1">{reasonFromUrl}</p>
+          {mode === "login" && (
+            <p className="mt-2 text-faint">
+              Inicia sesión con tu correo y contraseña para entrar
+              directamente.
+            </p>
+          )}
+        </div>
+      )}
+
       <form action={formAction} className="flex flex-col gap-3">
         {mode === "registro" && (
           <Field
@@ -51,9 +81,9 @@ export function AuthForm({ mode }: { mode: "login" | "registro" }) {
           </Link>
         )}
 
-        {state?.error && (
+        {displayError && (
           <p className="rounded-md border border-danger/30 bg-danger/10 px-3 py-2 text-xs text-danger">
-            {state.error}
+            {displayError}
           </p>
         )}
 
