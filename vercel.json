@@ -8,6 +8,19 @@
   "outputDirectory": ".next",
   "trailingSlash": false,
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.creaconstruye.abdev.click"
+        }
+      ],
+      "destination": "https://creaconstruye.abdev.click/:path",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

@@ -3,17 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  // El dominio canónico (sin www) para SEO.
-  async redirects() {
-    return [
-      {
-        source: "/:path(.*)",
-        has: [{ type: "host", value: "www.creaconstruye.abdev.click" }],
-        destination: "https://creaconstruye.abdev.click/:path",
-        permanent: true,
-      },
-    ];
-  },
+  // Los redirects de dominio (www → apex) se manejan en vercel.json,
+  // no aquí. Next.js redirects son para paths internos, no hosts.
   // Cabeceras de seguridad que aplican a TODAS las rutas (complementa
   // las de vercel.json — estas van en el HTML response).
   async headers() {
