@@ -21,12 +21,14 @@ export function AppShell({
   projects,
   project,
   statuses,
+  documentStatus,
   children,
 }: {
   user: AppUser;
   projects: Project[];
   project: Project;
   statuses: ToolStatusMap;
+  documentStatus: ToolStatus;
   children: ReactNode;
 }) {
   const pathname = usePathname();
@@ -52,7 +54,14 @@ export function AppShell({
       </header>
 
       <div className="flex flex-1">
-        <Sidebar pathname={pathname} project={project} statuses={statuses} done={done} isAdmin={user.isAdmin} />
+        <Sidebar
+          pathname={pathname}
+          project={project}
+          statuses={statuses}
+          documentStatus={documentStatus}
+          done={done}
+          isAdmin={user.isAdmin}
+        />
         <main className="flex-1 overflow-x-hidden px-6 py-8 sm:px-8">
           <div className="mx-auto max-w-5xl">{children}</div>
         </main>
@@ -117,12 +126,14 @@ function Sidebar({
   pathname,
   project,
   statuses,
+  documentStatus,
   done,
   isAdmin,
 }: {
   pathname: string;
   project: Project;
   statuses: ToolStatusMap;
+  documentStatus: ToolStatus;
   done: number;
   isAdmin: boolean;
 }) {
@@ -153,6 +164,7 @@ function Sidebar({
         })}
 
         <SectionLabel>Proyecto</SectionLabel>
+        <NavItem href={`${base}/documentacion`} pathname={pathname} label="Documentación" icon={<FolderIcon />} trailing={<span className="h-1.5 w-1.5 rounded-full" style={{ background: STATUS_DOT[documentStatus] }} />} />
         <NavItem href={`${base}/composicion`} pathname={pathname} label="Composición" icon={<ModulesIcon />} />
         <NavItem href={`${base}/reportes`} pathname={pathname} label="Reportes" icon={<DocIcon />} />
         <NavItem href={`${base}/config`} pathname={pathname} label="Configuración" icon={<GearIcon />} />
@@ -279,6 +291,13 @@ function GearIcon() {
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="3" />
       <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+    </svg>
+  );
+}
+function FolderIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z" />
     </svg>
   );
 }

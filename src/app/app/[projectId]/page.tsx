@@ -8,6 +8,8 @@ import {
   completedCount,
   type ToolStatus,
 } from "@/lib/data/projects";
+import { listProjectDocuments } from "@/lib/data/documents";
+import { FaseZero } from "@/components/app/FaseZero";
 
 const STATUS_LABEL: Record<ToolStatus, string> = {
   done: "Completado",
@@ -26,12 +28,63 @@ export default async function ProjectDashboard({
   params: Promise<{ projectId: string }>;
 }) {
   const { projectId } = await params;
-  const [project, statuses] = await Promise.all([
+  const [project, statuses, documents] = await Promise.all([
     getProject(projectId),
     getToolStatuses(projectId),
+    listProjectDocuments(projectId),
   ]);
   if (!project) notFound();
 
+  // Si no hay documentos, mostrar Fase 0 como landing con CTA prominente
+  if (documents.length === 0) {
+    return (
+      <div className="space-y-8">
+        {/* CTA grande */}
+        <div
+          className="rounded-2xl border-2 p-8 text-center"
+          style={{
+            borderColor: "#8B5CF640",
+            background:
+              "linear-gradient(135deg, rgba(139,92,246,0.05) 0%, rgba(200,255,0,0.04) 100%)",
+          }}
+        >
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-violet-sub">
+            Empieza por aquí
+          </p>
+          <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-ink">
+            Sube tus primeros documentos
+          </h1>
+          <p className="mx-auto mt-3 max-w-lg text-[13.5px] text-muted">
+            Claude extrae los datos de tus planos, certificados, boletas
+            prediales y contratos. Empezamos por{" "}
+            <span className="font-semibold text-ink">Terreno</span> y{" "}
+            <span className="font-semibold text-ink">Zonificación</span>; con
+            eso se desbloquea el resto de la proforma.
+          </p>
+          <Link
+            href={`/app/${project.id}/documentacion`}
+            className="mt-6 inline-flex items-center gap-2 rounded-md bg-volt px-6 py-3 text-[14px] font-extrabold text-on-volt transition-all hover:bg-volt-sub"
+            style={{ boxShadow: "0 0 16px rgba(200,255,0,0.3)" }}
+          >
+            Ir a Documentación
+            <span>→</span>
+          </Link>
+        </div>
+
+        {/* Fase 0 (sin tools aprobadas aún, pero muestra el mapa) */}
+        <FaseZero
+          projectId={project.id}
+          projectName={project.name}
+          municipio={project.municipio}
+          tipo={project.tipo}
+          documents={documents}
+          toolStatusByTool={statuses}
+        />
+      </div>
+    );
+  }
+
+  // Hay documentos: dashboard normal
   const done = completedCount(statuses);
   const nextTool = TOOLS.find((t) => statuses[t.id] !== "done") ?? TOOLS[0];
 
